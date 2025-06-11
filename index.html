@@ -622,9 +622,8 @@
             this.textContent = 'Redirecting...';
             this.disabled = true;
             
-            // Redirect to Stripe Payment Link (more reliable)
-            // You'll need to create this in your Stripe dashboard
-            window.location.href = 'https://buy.stripe.com/test_YOUR_PAYMENT_LINK';
+            // Redirect to your real Stripe Payment Link
+            window.location.href = 'https://buy.stripe.com/fZu14og0Td5A96heCo7IY02';
             
             // Fallback: Reset button after 3 seconds if redirect fails
             setTimeout(() => {
