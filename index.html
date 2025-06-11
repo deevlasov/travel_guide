@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PORTO GUIDE - Your Digital Travel Companion</title>
+    <meta name="description" content="Complete Porto travel guide in your phone. Hidden gems, best restaurants, insider tips from a local expert.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff08" points="0,1000 0,0 1000,0"/></svg>');
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text {
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            margin-bottom: 30px;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .features-preview {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .features-preview li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .features-preview li::before {
+            content: '✨';
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+
+        .cta-button {
+            background: #ff6b6b;
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            text-align: center;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.6);
+            background: #ff5252;
+        }
+
+        .phone-mockup {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone {
+            width: 280px;
+            height: 560px;
+            background: #1a1a1a;
+            border-radius: 40px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            animation: phoneFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes phoneFloat {
+            0%, 100% { transform: translateY(0px) rotateY(-5deg); }
+            50% { transform: translateY(-15px) rotateY(5deg); }
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="20" r="2" fill="%23ffffff20"/><circle cx="20" cy="50" r="1" fill="%23ffffff15"/><circle cx="80" cy="70" r="1.5" fill="%23ffffff25"/></svg>');
+        }
+
+        .app-header {
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .app-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .app-content {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            color: #333;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.7);
+        }
+
+        .content-icon {
+            width: 30px;
+            height: 30px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .content-text {
+            flex: 1;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: #f8fafc;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #718096;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .feature-description {
+            color: #718096;
+            line-height: 1.8;
+        }
+
+        /* Social Proof */
+        .social-proof {
+            padding: 80px 0;
+            background: white;
+            text-align: center;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .stat {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #667eea;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #718096;
+            margin-top: 5px;
+        }
+
+        /* CTA Section */
+        .final-cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .final-cta p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .price {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        .price-note {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 40px;
+        }
+
+        /* Email Form */
+        .email-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            gap: 15px;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            outline: none;
+        }
+
+        .email-submit {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .email-submit:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .phone {
+                width: 240px;
+                height: 480px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .email-form {
+                flex-direction: column;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .final-cta h2 {
+                font-size: 2.5rem;
+            }
+
+            .price {
+                font-size: 3rem;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-text {
+            animation-delay: 0.2s;
+        }
+
+        .phone-mockup {
+            animation-delay: 0.4s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text loading">
+                    <h1>PORTO GUIDE<br>IN YOUR PHONE</h1>
+                    <p class="subtitle">The ultimate insider guide to Porto's hidden gems, best restaurants, and secret spots that only locals know.</p>
+                    
+                    <ul class="features-preview">
+                        <li>50+ hidden gems & secret spots</li>
+                        <li>Best restaurants with insider tips</li>
+                        <li>Interactive maps & directions</li>
+                        <li>Offline access anywhere</li>
+                        <li>Updated for 2025</li>
+                    </ul>
+                    
+                    <a href="#buy" class="cta-button">Get Your Guide - €19</a>
+                </div>
+                
+                <div class="phone-mockup loading">
+                    <div class="phone">
+                        <div class="phone-screen">
+                            <div class="app-header">
+                                <div class="app-title">PORTO GUIDE</div>
+                                <div class="app-subtitle">Your Digital Companion</div>
+                            </div>
+                            
+                            <div class="app-content">
+                                <div class="content-item">
+                                    <div class="content-icon">🏛️</div>
+                                    <div class="content-text">Historic Landmarks</div>
+                                </div>
+                                <div class="content-item">
+                                    <div class="content-icon">🍷</div>
+                                    <div class="content-text">Wine Cellars</div>
+                                </div>
+                                <div class="content-item">
+                                    <div class="content-icon">🌊</div>
+                                    <div class="content-text">Riverside Walks</div>
+                                </div>
+                                <div class="content-item">
+                                    <div class="content-icon">🎨</div>
+                                    <div class="content-text">Art Districts</div>
+                                </div>
+                                <div class="content-item">
+                                    <div class="content-icon">📍</div>
+                                    <div class="content-text">Hidden Spots</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Everything You Need</h2>
+            <p class="section-subtitle">Discover Porto like a local with our comprehensive digital guide</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">Mobile Optimized</h3>
+                    <p class="feature-description">Perfect for your phone - works offline and online. No app download needed, just open in your browser.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🗺️</div>
+                    <h3 class="feature-title">Interactive Maps</h3>
+                    <p class="feature-description">GPS coordinates and walking directions to every location. Never get lost in Porto's winding streets.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💎</div>
+                    <h3 class="feature-title">Hidden Gems</h3>
+                    <p class="feature-description">Secret viewpoints, local hangouts, and authentic spots that most tourists never discover.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🍽️</div>
+                    <h3 class="feature-title">Food & Wine</h3>
+                    <p class="feature-description">Best traditional restaurants, wine bars, and local delicacies with insider recommendations.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Instant Access</h3>
+                    <p class="feature-description">Download immediately after purchase. Start exploring Porto in minutes, not hours.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">Free Updates</h3>
+                    <p class="feature-description">Get all future updates free. New places, seasonal tips, and fresh recommendations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="container">
+            <h2 class="section-title">Trusted by Travelers</h2>
+            
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Happy Travelers</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">Hidden Spots</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">4.9★</span>
+                    <span class="stat-label">Average Rating</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="buy">
+        <div class="container">
+            <h2>Ready to Explore Porto?</h2>
+            <p>Get instant access to the complete Porto guide</p>
+            
+            <div class="price">€19</div>
+            <p class="price-note">One-time payment • Lifetime access • Free updates</p>
+            
+            <form class="email-form" id="purchaseForm">
+                <input type="email" class="email-input" placeholder="Enter your email" required>
+                <button type="submit" class="email-submit">Get Access Now</button>
+            </form>
+            
+            <p style="font-size: 0.9rem; opacity: 0.7;">Secure payment via Stripe • Instant delivery</p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Loading animations
+        window.addEventListener('load', function() {
+            document.querySelectorAll('.loading').forEach(el => {
+                el.style.opacity = '1';
+            });
+        });
+
+        // Form handling (placeholder - will integrate with Stripe)
+        document.getElementById('purchaseForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('.email-input').value;
+            
+            // This is where Stripe integration will go
+            alert(`Thanks! We'll send payment link to ${email}`);
+            
+            // TODO: Integrate with Stripe Checkout
+            // stripe.redirectToCheckout({
+            //     lineItems: [{price: 'price_xxxx', quantity: 1}],
+            //     mode: 'payment',
+            //     successUrl: 'your-domain.com/success',
+            //     cancelUrl: 'your-domain.com',
+            //     customerEmail: email
+            // });
+        });
+
+        // Parallax effect for hero
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+    </script>
+</body>
+</html>
