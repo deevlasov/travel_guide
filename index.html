@@ -6,6 +6,9 @@
     <title>PORTO GUIDE - Your Digital Travel Companion</title>
     <meta name="description" content="Complete Porto travel guide in your phone. Hidden gems, best restaurants, insider tips from a local expert.">
     
+    <!-- Load Stripe.js synchronously -->
+    <script src="https://js.stripe.com/v3/"></script></script>
+    
     <style>
         * {
             margin: 0;
@@ -584,16 +587,23 @@
             <div class="price">€19</div>
             <p class="price-note">One-time payment • Lifetime access • Free updates</p>
             
-            <form class="email-form" id="purchaseForm">
-                <input type="email" class="email-input" placeholder="Enter your email" required>
-                <button type="submit" class="email-submit">Get Access Now</button>
-            </form>
+            <button id="buyNowBtn" class="cta-button" style="font-size: 1.3rem; padding: 20px 50px;">
+                Buy Now - €19
+            </button>
             
-            <p style="font-size: 0.9rem; opacity: 0.7;">Secure payment via Stripe • Instant delivery</p>
+            <p style="font-size: 0.9rem; opacity: 0.7; margin-top: 20px;">Secure payment via Stripe • Instant delivery</p>
         </div>
     </section>
 
     <script>
+        // Simple approach - just check when user clicks
+        document.addEventListener('DOMContentLoaded', function() {
+            // Loading animations
+            document.querySelectorAll('.loading').forEach(el => {
+                el.style.opacity = '1';
+            });
+        });
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -604,29 +614,42 @@
             });
         });
 
-        // Loading animations
-        window.addEventListener('load', function() {
-            document.querySelectorAll('.loading').forEach(el => {
-                el.style.opacity = '1';
-            });
+        // Simple redirect to Stripe Payment Link
+        document.getElementById('buyNowBtn').addEventListener('click', function() {
+            console.log('Buy button clicked!');
+            
+            // Show loading state
+            this.textContent = 'Redirecting...';
+            this.disabled = true;
+            
+            // Redirect to Stripe Payment Link (more reliable)
+            // You'll need to create this in your Stripe dashboard
+            window.location.href = 'https://buy.stripe.com/test_YOUR_PAYMENT_LINK';
+            
+            // Fallback: Reset button after 3 seconds if redirect fails
+            setTimeout(() => {
+                this.textContent = 'Buy Now - €19';
+                this.disabled = false;
+            }, 3000);
         });
 
-        // Form handling (placeholder - will integrate with Stripe)
-        document.getElementById('purchaseForm').addEventListener('submit', function(e) {
+        // Handle success/cancel messages
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success')) {
+            alert('Payment successful! Check your email for the download link.');
+        }
+        if (urlParams.get('canceled')) {
+            alert('Payment was canceled. You can try again anytime.');
+        }
+
+        // Also add click handler to main CTA button
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
             e.preventDefault();
-            const email = this.querySelector('.email-input').value;
             
-            // This is where Stripe integration will go
-            alert(`Thanks! We'll send payment link to ${email}`);
-            
-            // TODO: Integrate with Stripe Checkout
-            // stripe.redirectToCheckout({
-            //     lineItems: [{price: 'price_xxxx', quantity: 1}],
-            //     mode: 'payment',
-            //     successUrl: 'your-domain.com/success',
-            //     cancelUrl: 'your-domain.com',
-            //     customerEmail: email
-            // });
+            // Scroll to purchase form
+            document.querySelector('#buy').scrollIntoView({
+                behavior: 'smooth'
+            });
         });
 
         // Parallax effect for hero
