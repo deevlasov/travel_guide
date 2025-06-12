@@ -78,16 +78,28 @@
             width: 100%;
         }
 
+        .hero {
+            min-height: 100vh;
+            background: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.7) 100%),
+                url('images/porto.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
         .hero-text h1 {
             margin-bottom: 24px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: #ffffff;
         }
 
         .hero-description {
             font-size: 1.25rem;
             margin-bottom: 40px;
-            opacity: 0.9;
             line-height: 1.5;
+            color: #f8f9fa;
         }
 
         .cta-button {
