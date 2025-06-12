@@ -731,10 +731,12 @@
     </div>
 
     <script>
-        // Stripe Integration - Client Side Only
+        // Stripe Integration - SECURE CLIENT-SIDE ONLY
         const stripe = Stripe('pk_live_51QDnVuBw0HvTXgVMOOwL8Oqyb7HJgdvthEGE0yKWpzlMVJgN88iPYZsUiZZKQpGkq8TUWxWFMBmqw7JLZRdjJV8k00nKvxZuXL');
 
-        async function handlePurchase() {
+        async function handlePurchase(event) {
+            event.preventDefault();
+            
             const button = event.target;
             const originalText = button.textContent;
             
@@ -743,25 +745,13 @@
             button.disabled = true;
             
             try {
-                // Direct redirect to Stripe Checkout with price ID
-                const { error } = await stripe.redirectToCheckout({
-                    lineItems: [{
-                        price: 'price_1QDnazBw0HvTXgVMZWRyTBBd',
-                        quantity: 1,
-                    }],
-                    mode: 'payment',
-                    successUrl: window.location.origin + '?success=true',
-                    cancelUrl: window.location.origin,
-                });
-
-                if (error) {
-                    console.error('Stripe error:', error);
-                    alert('Помилка при обробці платежу. Спробуйте ще раз.');
-                }
+                // Use Stripe Payment Links (most secure for static sites)
+                window.location.href = 'https://buy.stripe.com/28o5o2gJF28HdSE9AA';
+                
             } catch (error) {
                 console.error('Error:', error);
                 alert('Помилка. Спробуйте ще раз.');
-            } finally {
+                
                 // Reset button
                 button.textContent = originalText;
                 button.disabled = false;
@@ -771,7 +761,10 @@
         // Handle all buy buttons
         document.addEventListener('DOMContentLoaded', function() {
             // Main CTA button
-            document.getElementById('mainCTA').addEventListener('click', handlePurchase);
+            const mainCTA = document.getElementById('mainCTA');
+            if (mainCTA) {
+                mainCTA.addEventListener('click', handlePurchase);
+            }
             
             // All other buy buttons
             document.querySelectorAll('.buy-button').forEach(button => {
@@ -788,14 +781,16 @@
         // Show success message
         function showSuccessMessage() {
             const message = document.getElementById('successMessage');
-            message.classList.add('show');
-            
-            setTimeout(() => {
-                message.classList.remove('show');
-            }, 5000);
+            if (message) {
+                message.classList.add('show');
+                
+                setTimeout(() => {
+                    message.classList.remove('show');
+                }, 5000);
+            }
         }
         
-        // Add interactive animations
+        // Animation code
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
@@ -817,21 +812,8 @@
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(30px)';
                 card.style.transition = 'all 0.6s ease';
-                observer.observe(card);
             });
         });
-        
-        // Add hover effects to phone mockup
-        const phone = document.querySelector('.phone-mockup');
-        if (phone) {
-            phone.addEventListener('mouseenter', () => {
-                phone.style.transform = 'scale(1.02) rotateY(-5deg)';
-            });
-            
-            phone.addEventListener('mouseleave', () => {
-                phone.style.transform = 'scale(1) rotateY(0deg)';
-            });
-        }
     </script>
 </body>
 </html>
