@@ -731,54 +731,59 @@
     </div>
 
     <script>
-        // Initialize Stripe
-        const stripe = Stripe('pk_test_51234567890abcdef'); // Replace with your actual publishable key
-        
-        // Handle purchase function
+        // Stripe Integration - Client Side Only
+        const stripe = Stripe('pk_live_51QDnVuBw0HvTXgVMOOwL8Oqyb7HJgdvthEGE0yKWpzlMVJgN88iPYZsUiZZKQpGkq8TUWxWFMBmqw7JLZRdjJV8k00nKvxZuXL');
+
         async function handlePurchase() {
             const button = event.target;
             const originalText = button.textContent;
             
             // Show loading state
             button.textContent = 'Обробка...';
-            button.classList.add('loading');
+            button.disabled = true;
             
             try {
-                // Simulate API call to create checkout session
-                const response = await fetch('/create-checkout-session', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        product: 'porto-guide',
-                        price: 2900, // 29.00 EUR in cents
-                        currency: 'eur'
-                    })
+                // Direct redirect to Stripe Checkout with price ID
+                const { error } = await stripe.redirectToCheckout({
+                    lineItems: [{
+                        price: 'price_1QDnazBw0HvTXgVMZWRyTBBd',
+                        quantity: 1,
+                    }],
+                    mode: 'payment',
+                    successUrl: window.location.origin + '?success=true',
+                    cancelUrl: window.location.origin,
                 });
-                
-                const session = await response.json();
-                
-                // Redirect to Stripe Checkout
-                const result = await stripe.redirectToCheckout({
-                    sessionId: session.id
-                });
-                
-                if (result.error) {
-                    throw new Error(result.error.message);
+
+                if (error) {
+                    console.error('Stripe error:', error);
+                    alert('Помилка при обробці платежу. Спробуйте ще раз.');
                 }
-                
             } catch (error) {
                 console.error('Error:', error);
-                
-                // For demo purposes, show success message
-                showSuccessMessage();
-                
+                alert('Помилка. Спробуйте ще раз.');
+            } finally {
                 // Reset button
                 button.textContent = originalText;
-                button.classList.remove('loading');
+                button.disabled = false;
             }
         }
+        
+        // Handle all buy buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            // Main CTA button
+            document.getElementById('mainCTA').addEventListener('click', handlePurchase);
+            
+            // All other buy buttons
+            document.querySelectorAll('.buy-button').forEach(button => {
+                button.addEventListener('click', handlePurchase);
+            });
+            
+            // Check for successful payment
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                showSuccessMessage();
+            }
+        });
         
         // Show success message
         function showSuccessMessage() {
@@ -790,21 +795,7 @@
             }, 5000);
         }
         
-        // Handle main CTA button
-        document.getElementById('mainCTA').addEventListener('click', handlePurchase);
-        
-        // Handle all buy buttons
-        document.querySelectorAll('.buy-button').forEach(button => {
-            button.addEventListener('click', handlePurchase);
-        });
-        
-        // Smooth scrolling for main CTA
-        document.getElementById('mainCTA').addEventListener('click', function(e) {
-            // If you want to scroll to a specific section instead of purchasing immediately
-            // document.querySelector('.awaits').scrollIntoView({ behavior: 'smooth' });
-        });
-        
-        // Add some interactive animations
+        // Add interactive animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
@@ -829,12 +820,6 @@
                 observer.observe(card);
             });
         });
-        
-        // Handle URL parameters for successful payment
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get('success') === 'true') {
-            showSuccessMessage();
-        }
         
         // Add hover effects to phone mockup
         const phone = document.querySelector('.phone-mockup');
