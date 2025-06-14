@@ -193,7 +193,7 @@
             justify-content: center;
         }
         .badge-location {
-            left: 12%;
+            left: -8%;
             top: 7%;
             transform: translateY(-30%);
         }
@@ -201,6 +201,11 @@
             right: -8%;
             top: 48%;
             transform: translateY(-50%);
+        }
+        .badge-audio {
+            left: -8%;
+            bottom: 7%;
+            transform: translateY(30%);
         }
         @media (max-width: 900px) {
             .badge-location {
@@ -211,6 +216,11 @@
             .badge-telegram {
                 right: 0;
                 top: 60%;
+                transform: none;
+            }
+            .badge-audio {
+                left: 0;
+                bottom: 2%;
                 transform: none;
             }
         }
@@ -890,6 +900,12 @@
                                 <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#229ED9"/><path d="M19.5 6.5 16.5 18.5s-.4 1-1.5 1c-.4 0-.8-.3-1-0.5l-3.5-2.5-1.5-1-2.5-1c0 0-.5-.2-.5-.7s.5-.7.5-.7l12-7c0 0 1-.5 1 .5z" fill="#fff"/></svg>
                             </span>
                             <span>Telegram-бот</span>
+                        </div>
+                        <div class="badge badge-audio">
+                            <span class="badge-icon">
+                                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 3a1 1 0 0 1 1 1v10a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1zm-5 8a1 1 0 0 1 1 1v2a5 5 0 0 0 10 0v-2a1 1 0 1 1 2 0v2a7 7 0 0 1-14 0v-2a1 1 0 0 1 1-1z" fill="#229ED9"/></svg>
+                            </span>
+                            <span>Аудіогід</span>
                         </div>
                     </div>
                 </div>
