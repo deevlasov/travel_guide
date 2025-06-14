@@ -872,35 +872,9 @@
                                 </div>
                                 
                                 <div class="slideshow">
-                                    <div class="slide active">
-                                        <div class="telegram-ui">
-                                            подорож з дітьми — це не завжди про стрес, а ще й про задоволення! тут зберегли місця, де і нам цікаво, і дітям є що досліджувати.
-                                        </div>
-                                        
-                                        <div class="telegram-ui">
-                                            ти знаєш, що потрібно взяти з собою, як пересуватись містом і що не варто обирати підходящі для прогулянок у Порту 😊
-                                        </div>
-                                    </div>
-
-                                    <div class="slide">
-                                        <div class="telegram-ui">
-                                            🍷 Найкращі винні бари та ресторани з портвейном
-                                        </div>
-                                        
-                                        <div class="telegram-ui">
-                                            🏰 Історичні пам'ятки та музеї, які варто відвідати
-                                        </div>
-                                    </div>
-
-                                    <div class="slide">
-                                        <div class="telegram-ui">
-                                            🌊 Найкращі пляжі та місця для спостереження за закатом
-                                        </div>
-                                        
-                                        <div class="telegram-ui">
-                                            🍽️ Місцеві кафе та ресторани з автентичною кухнею
-                                        </div>
-                                    </div>
+                                    <img class="slide active" src="images/Screen_01.png" alt="Telegram Screenshot 1" style="width:100%; height:100%; object-fit:cover; border-radius:20px;" />
+                                    <img class="slide" src="images/Screen_02.png" alt="Telegram Screenshot 2" style="width:100%; height:100%; object-fit:cover; border-radius:20px;" />
+                                    <img class="slide" src="images/Screen_03.png" alt="Telegram Screenshot 3" style="width:100%; height:100%; object-fit:cover; border-radius:20px;" />
                                 </div>
                             </div>
                         </div>
@@ -1188,21 +1162,18 @@
         
         // Slideshow functionality
         function initSlideshow() {
-            const slides = document.querySelectorAll('.slide');
+            const slides = document.querySelectorAll('.phone-content .slide');
             let currentSlide = 0;
-            
             function showSlide(index) {
-                slides.forEach(slide => slide.classList.remove('active'));
-                slides[index].classList.add('active');
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
             }
-            
             function nextSlide() {
                 currentSlide = (currentSlide + 1) % slides.length;
                 showSlide(currentSlide);
             }
-            
-            // Change slide every 5 seconds
-            setInterval(nextSlide, 5000);
+            setInterval(nextSlide, 3500);
         }
     </script>
 </body>
