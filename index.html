@@ -780,9 +780,16 @@
         const stripe = Stripe('pk_live_51QDnVuBw0HvTXgVMOOwL8Oqyb7HJgdvthEGE0yKWpzlMVJgN88iPYZsUiZZKQpGkq8TUWxWFMBmqw7JLZRdjJV8k00nKvxZuXL');
 
         async function handlePurchase(event) {
-            event.preventDefault();
+            if (event) {
+                event.preventDefault();
+            }
             
-            const button = event.target;
+            const button = event ? event.target : document.querySelector('.buy-button');
+            if (!button) {
+                console.error('Button not found');
+                return;
+            }
+
             const originalText = button.textContent;
             
             // Show loading state
@@ -790,11 +797,12 @@
             button.disabled = true;
             
             try {
+                console.log('Redirecting to Stripe payment...');
                 // Redirect to Stripe Payment Link
-                window.location.href = 'https://buy.stripe.com/28o5o2gJF28HdSE9AA';
+                window.location.href = 'https://buy.stripe.com/fZu14og0Td5A96heCo7IY02';
                 
             } catch (error) {
-                console.error('Error:', error);
+                console.error('Payment error:', error);
                 alert('Помилка при обробці платежу. Спробуйте ще раз.');
                 
                 // Reset button
@@ -805,20 +813,28 @@
         
         // Handle all buy buttons
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Initializing payment buttons...');
+            
             // Main CTA button
             const mainCTA = document.getElementById('mainCTA');
             if (mainCTA) {
+                console.log('Found main CTA button');
                 mainCTA.addEventListener('click', handlePurchase);
+            } else {
+                console.warn('Main CTA button not found');
             }
             
             // All other buy buttons
-            document.querySelectorAll('.buy-button').forEach(button => {
+            const buyButtons = document.querySelectorAll('.buy-button');
+            console.log(`Found ${buyButtons.length} buy buttons`);
+            buyButtons.forEach(button => {
                 button.addEventListener('click', handlePurchase);
             });
             
             // Check for successful payment
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('success') === 'true') {
+                console.log('Payment successful');
                 showSuccessMessage();
             }
         });
@@ -828,10 +844,14 @@
             const message = document.getElementById('successMessage');
             if (message) {
                 message.classList.add('show');
+                console.log('Success message shown');
                 
                 setTimeout(() => {
                     message.classList.remove('show');
+                    console.log('Success message hidden');
                 }, 5000);
+            } else {
+                console.warn('Success message element not found');
             }
         }
         
