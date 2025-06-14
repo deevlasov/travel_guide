@@ -306,6 +306,7 @@
             background: #f8fafc;
             border-radius: 28px;
             box-shadow: 0 4px 24px rgba(61,92,99,0.06);
+            border: 1.5px solid #e0e7ef;
             min-width: 320px;
             max-width: 370px;
             flex: 1 1 320px;
@@ -377,6 +378,19 @@
         .awaits-card-buy-btn:hover {
             background: #e6f0f2;
             color: #2b3e42;
+        }
+        .awaits-card-telegram {
+            background: #229ED9 !important;
+            color: #fff !important;
+            border: none !important;
+        }
+        .awaits-card-telegram .awaits-card-title,
+        .awaits-card-telegram .awaits-card-desc {
+            color: #fff !important;
+        }
+        .awaits-card-telegram .awaits-card-icon {
+            background: rgba(255,255,255,0.18) !important;
+            color: #fff !important;
         }
         @media (max-width: 900px) {
             .awaits-cards {
@@ -974,8 +988,13 @@
                         <div class="awaits-card-desc">Все особисто протестовано нами і друзями</div>
                     </div>
                 </div>
-                <div class="awaits-card">
-                    <div class="awaits-card-icon">🤖</div>
+                <div class="awaits-card awaits-card-telegram">
+                    <div class="awaits-card-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="16" cy="16" r="16" fill="#229ED9"/>
+                            <path d="M23.5 10.5L20.5 22.5C20.5 22.5 20.1 23.5 19 23.5C18.6 23.5 18.2 23.2 18 23L14.5 20.5L13 19.5L10.5 18.5C10.5 18.5 10 18.3 10 17.8C10 17.3 10.5 17.1 10.5 17.1L22.5 10.5C22.5 10.5 23.5 10 23.5 10.5Z" fill="white"/>
+                        </svg>
+                    </div>
                     <div class="awaits-card-content">
                         <div class="awaits-card-title">Telegram-бот</div>
                         <div class="awaits-card-desc">Все збережено в одному місці для зручного доступу</div>
