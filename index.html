@@ -798,8 +798,8 @@
             
             try {
                 console.log('Redirecting to Stripe payment...');
-                // Redirect to Stripe Payment Link
-                window.location.href = 'https://buy.stripe.com/fZu14og0Td5A96heCo7IY02';
+                // Open Stripe Payment Link in new window
+                window.open('https://buy.stripe.com/fZu14og0Td5A96heCo7IY02', '_blank');
                 
             } catch (error) {
                 console.error('Payment error:', error);
