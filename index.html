@@ -162,74 +162,55 @@
             opacity: 1;
         }
 
-        /* Floating badge and messages */
-        .floating-ui {
+        /* Floating badges for hero phone */
+        .floating-badges {
             position: absolute;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
             left: 0;
-            top: 50%;
-            transform: translate(-35%, -50%);
+            top: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
         }
-        .floating-ui .location-badge {
-            pointer-events: auto;
+        .badge {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 24px;
             box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-        }
-        .floating-ui .telegram-ui {
+            padding: 10px 22px 10px 14px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #222;
+            position: absolute;
             pointer-events: auto;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+            gap: 10px;
         }
-        .floating-ui .telegram-ui:last-child {
-            margin-left: 32px;
+        .badge-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .badge-location {
+            left: 12%;
+            top: 7%;
+            transform: translateY(-30%);
+        }
+        .badge-telegram {
+            right: -8%;
+            top: 48%;
+            transform: translateY(-50%);
         }
         @media (max-width: 900px) {
-            .floating-ui {
-                left: 50%;
-                top: 100%;
-                transform: translate(-50%, -20%);
-                flex-direction: column;
-                gap: 12px;
+            .badge-location {
+                left: 0;
+                top: 2%;
+                transform: none;
             }
-            .floating-ui .telegram-ui:last-child {
-                margin-left: 0;
+            .badge-telegram {
+                right: 0;
+                top: 60%;
+                transform: none;
             }
-        }
-
-        .telegram-ui {
-            background: white;
-            border-radius: 20px 20px 8px 20px;
-            padding: 16px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            font-size: 14px;
-            line-height: 1.4;
-            color: #333;
-            max-width: 240px;
-        }
-
-        .location-badge {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 12px 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            color: #333;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .location-dot {
-            width: 8px;
-            height: 8px;
-            background: #10b981;
-            border-radius: 50%;
         }
 
         /* Features Section */
@@ -894,17 +875,19 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Floating badge and messages, now relative to hero-visual -->
-                    <div class="floating-ui">
-                        <div class="location-badge">
-                            <div class="location-dot"></div>
+                    <!-- Floating badges for hero phone -->
+                    <div class="floating-badges">
+                        <div class="badge badge-location">
+                            <span class="badge-icon">
+                                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="#229ED9" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+                            </span>
                             <span>списки локацій</span>
                         </div>
-                        <div class="telegram-ui">
-                            подорож з дітьми — це не завжди про стрес, а ще й про задоволення! тут зберегли місця, де і нам цікаво, і дітям є що досліджувати.
-                        </div>
-                        <div class="telegram-ui">
-                            ти знаєш, що потрібно взяти з собою, як пересуватись містом і що не варто обирати підходящі для прогулянок у Порту 😊
+                        <div class="badge badge-telegram">
+                            <span class="badge-icon">
+                                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#229ED9"/><path d="M19.5 6.5 16.5 18.5s-.4 1-1.5 1c-.4 0-.8-.3-1-0.5l-3.5-2.5-1.5-1-2.5-1c0 0-.5-.2-.5-.7s.5-.7.5-.7l12-7c0 0 1-.5 1 .5z" fill="#fff"/></svg>
+                            </span>
+                            <span>Telegram-бот</span>
                         </div>
                     </div>
                 </div>
