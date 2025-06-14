@@ -776,7 +776,7 @@
     </div>
 
     <script>
-        // Stripe Integration - SECURE CLIENT-SIDE ONLY
+        // Stripe Integration
         const stripe = Stripe('pk_live_51QDnVuBw0HvTXgVMOOwL8Oqyb7HJgdvthEGE0yKWpzlMVJgN88iPYZsUiZZKQpGkq8TUWxWFMBmqw7JLZRdjJV8k00nKvxZuXL');
 
         async function handlePurchase(event) {
@@ -790,12 +790,12 @@
             button.disabled = true;
             
             try {
-                // Use Stripe Payment Links (most secure for static sites)
+                // Redirect to Stripe Payment Link
                 window.location.href = 'https://buy.stripe.com/28o5o2gJF28HdSE9AA';
                 
             } catch (error) {
                 console.error('Error:', error);
-                alert('Помилка. Спробуйте ще раз.');
+                alert('Помилка при обробці платежу. Спробуйте ще раз.');
                 
                 // Reset button
                 button.textContent = originalText;
