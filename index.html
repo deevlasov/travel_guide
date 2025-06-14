@@ -215,18 +215,28 @@
         .features {
             padding: 120px 0;
             background: #f8fafc;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        .features h2 {
-            text-align: center;
-            margin-bottom: 80px;
-            color: #1a202c;
+        .features.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+        }
+
+        .features-grid.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .feature-card {
@@ -236,11 +246,13 @@
             box-shadow: 0 4px 24px rgba(0,0,0,0.06);
             text-align: center;
             transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
-        .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .feature-icon {
@@ -855,20 +867,54 @@
             }
         }
         
-        // Animation code
+        // Improved animation code
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '50px 0px'
         };
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('visible');
+                    // If it's a feature card, add a delay based on its index
+                    if (entry.target.classList.contains('feature-card')) {
+                        const index = Array.from(entry.target.parentElement.children).indexOf(entry.target);
+                        entry.target.style.transitionDelay = `${index * 0.1}s`;
+                    }
                 }
             });
         }, observerOptions);
+        
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            // Observe sections
+            const sections = document.querySelectorAll('.features, .awaits, .directions');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                observer.observe(section);
+            });
+
+            // Observe feature cards
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                observer.observe(card);
+            });
+
+            // Observe other cards
+            const otherCards = document.querySelectorAll('.awaits-card, .direction-card');
+            otherCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                observer.observe(card);
+            });
+            
+            // Initialize slideshow
+            initSlideshow();
+        });
         
         // Slideshow functionality
         function initSlideshow() {
@@ -888,19 +934,6 @@
             // Change slide every 5 seconds
             setInterval(nextSlide, 5000);
         }
-        
-        // Observe cards for animation
-        document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('.feature-card, .awaits-card, .direction-card');
-            cards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'all 0.6s ease';
-            });
-            
-            // Initialize slideshow
-            initSlideshow();
-        });
     </script>
 </body>
 </html>
