@@ -1,0 +1,3 @@
+pyTelegramBotAPI
+notion-client
+python-dotenv 
