@@ -54,8 +54,8 @@ def gen_main_menu():
     return markup
 
 def gen_food_submenu():
-    markup = InlineKeyboardMarkup(row_width=1)
-    buttons = [InlineKeyboardButton(data[0], callback_data=f"sub_food_{key}") for key, data in GUIDE_DATA['food']['sub_menu'].items()]
+    markup = InlineKeyboardMarkup(row_width=2)
+    buttons = [InlineKeyboardButton(title, callback_data=f"sub_food_{key}") for key, (title, _) in GUIDE_DATA['food']['sub_menu'].items()]
     markup.add(*buttons)
     return markup
 
