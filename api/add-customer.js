@@ -27,7 +27,7 @@ export default async function handler(req, res) {
         Name: { title: [{ text: { content: name || "" } }] },
         Email: { email: email },
         Phone: { phone_number: phone || "" },
-        Product: { rich_text: [{ text: { content: product || "" } }] }
+        Product: { select: { name: product || "" } }
       }
     });
     res.status(200).json({ success: true });
