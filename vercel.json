@@ -10,6 +10,10 @@
     {
       "src": "/api/telegram-webhook",
       "dest": "api/telegram-webhook.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ]
 } 
