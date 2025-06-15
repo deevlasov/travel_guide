@@ -16,5 +16,8 @@
     "url": "https://github.com/deevlasov/travel_guide/issues"
   },
   "homepage": "https://github.com/deevlasov/travel_guide#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "@notionhq/client": "^3.1.3"
+  }
 }
