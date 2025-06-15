@@ -1,7 +1,16 @@
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const isProd = process.env.VERCEL_ENV === 'production';
+
+const stripeSecretKey = isProd
+  ? process.env.STRIPE_SECRET_KEY
+  : process.env.STRIPE_SECRET_KEY_TEST;
+
+const endpointSecret = isProd
+  ? process.env.STRIPE_WEBHOOK_SECRET
+  : process.env.STRIPE_WEBHOOK_SECRET_TEST;
+
+const stripe = new Stripe(stripeSecretKey);
 
 export const config = {
   api: {
